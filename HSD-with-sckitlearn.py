@@ -19,7 +19,8 @@ data = data[["tweet", "labels"]]
 nltk.download('stopwords')
 stopword=set(stopwords.words('english'))
 
-def clean(text):
+for i in data["tweet"]:
+    text = i
     text = str(text).lower()
     text = re.sub('\[.*?\]', '', text)
     text = re.sub('https?://\S+|www\.\S+', '', text)
@@ -31,9 +32,7 @@ def clean(text):
     text=" ".join(text)
     text = [stemmer.stem(word) for word in text.split(' ')]
     text=" ".join(text)
-    return text
-data["tweet"] = data["tweet"].apply(clean)
-data.head()
+
 
 x = np.array(data["tweet"])
 y = np.array(data["labels"])
